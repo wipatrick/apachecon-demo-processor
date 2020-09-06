@@ -19,7 +19,7 @@
 ## Apache StreamPipes Demo @ApacheCon
 How to write your own StreamPipes data processor? Simple `greeter` data processor appending a user-defined text to an input event stream.
 
-![MyGreeter Demo](demo/apachecon.gif)
+![MyGreeter Demo](img/apachecon.gif)
 
 ## Prequisite
 * Java 8 JDK (minimum)
