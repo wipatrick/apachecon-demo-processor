@@ -92,6 +92,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.2.0.RELEASE</version>
+                <configuration>
+                    <environmentVariables>
+                        <!--Linux option (use docker0 bridge IP) -->
+                        <!--<SP_HOST>ADD_DOCKER0_BRIDGE_IP</SP_HOST>-->
+                        <!-- Mac, Windows option: host.docker.internal -->
+                        <SP_HOST>host.docker.internal</SP_HOST>
+                        <SP_PORT>8005</SP_PORT>
+                        <SP_DEBUG>true</SP_DEBUG>
+                    </environmentVariables>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

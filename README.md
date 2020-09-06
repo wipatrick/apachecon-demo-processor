@@ -54,5 +54,17 @@ Open this repo as a project in IntelliJ (recommended).
 If you use IntelliJ you're ready to go. Just use our run config `MyGreeterProcessor` (see `.idea/runConfiguration`) which
 should be auto-loaded when importing the Maven project and run the application.
 
+Since we're running the processor natively on your system, and the rest of StreamPipes inside Docker containers. We need
+to make sure that both ends are able to communicate with each other. Thus, we use the environment variables `SP_HOST`,
+`SP_PORT` and `SP_DEBUG` to configure the data processor what host and port it is running on and that we're in dev/debug
+mode.
+
+**Settings**: 
+* **Windows, Mac** user: `SP_HOST=host.docker.internal` is already set.
+* **Linux** user: set `SP_HOST` to your `docker0` bridge IP (see `ifconfig`).
+
+> **Note**: if you're not using IntelliJ and want to run the demo you can so by starting the processor from the command line
+> `mvn spring-boot:run`. The environment variables such as `SP_HOST` can be set in the `pom.xml`.
+
 ## What's next? Where to go from here?
 You can package the data processor as a Docker image (see `Dockerfile`) and deploy it.
