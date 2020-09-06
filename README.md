@@ -32,30 +32,25 @@ How to write your own StreamPipes data processor? Simple `greeter` data processo
 
 ## Usage
 
-**Step 1**: Clone this repo
+#### Step 1: Clone repository
 ```bash
 git clone https://github.com/wipatrick/apachecon-demo-processor
 ```
 
-**Step 2**: Clone StreamPipes installer repo
+#### Step 2: Setup StreamPipes environment with **[StreamPipes CLI](https://github.com/apache/incubator-streampipes-installer/cli)**
 > **Hint**: read StreamPipes CLI `README` for more details on various options.
 ```bash
 git clone https://github.com/apache/incubator-streampipes-installer
-cd cli
-```
-
-**Step 3**: Setup StreamPipes with **[StreamPipes CLI](https://github.com/apache/incubator-streampipes-installer/cli)** - The Developer's Favorite
-Set dev environment for `pipeline-elements` and start it.
-```bash
-streampipes env --set pipeline-element
-streampipes up -d
+cd cli/
+./streampipes env --set pipeline-element
+./streampipes up -d
 ```
 Go to [http://localhost](http://localhost) to finish the installation in the browser.
 
-**Step 4**: Import maven project
+#### Step 3: Import maven project
+Open this repo as a project in IntelliJ (recommended).
 
-**Step 5**: Run project
-
+#### Step 4: Start "MyGreeterProcessor" run configuration
 If you use IntelliJ you're ready to go. Just use our run config `MyGreeterProcessor` (see `.idea/runConfiguration`) which
 should be auto-loaded when importing the Maven project and run the application.
 

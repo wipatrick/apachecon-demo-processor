@@ -23,16 +23,32 @@ import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
+/**
+ * Actual data processor application logic
+ */
 public class MyGreeter implements EventProcessor<MyGreeterParameters> {
 
   private String greeting;
 
+  /**
+   * onInvocation gets called upon pipeline start
+   *
+   * @param parameters
+   * @param out
+   * @param ctx
+   */
   @Override
   public void onInvocation(MyGreeterParameters parameters,
                            SpOutputCollector out, EventProcessorRuntimeContext ctx) {
     this.greeting = parameters.getGreeting();
   }
 
+  /**
+   * onEvent is called on every event
+   *
+   * @param event event model containing actual event, used to retrieve certain values or add new fields
+   * @param out output collector used to forward event
+   */
   @Override
   public void onEvent(Event event, SpOutputCollector out) {
 
@@ -55,6 +71,10 @@ public class MyGreeter implements EventProcessor<MyGreeterParameters> {
     out.collect(event);
   }
 
+
+  /**
+   * onDetach is called upon pipeline stop
+   */
   @Override
   public void onDetach() {
 

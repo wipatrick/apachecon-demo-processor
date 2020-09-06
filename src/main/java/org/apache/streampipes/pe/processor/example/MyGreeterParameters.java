@@ -21,6 +21,9 @@ package org.apache.streampipes.pe.processor.example;
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
+/**
+ * Simple parameter POJO to store user configurations
+ */
 public class MyGreeterParameters extends EventProcessorBindingParams {
 
   private String greeting;
