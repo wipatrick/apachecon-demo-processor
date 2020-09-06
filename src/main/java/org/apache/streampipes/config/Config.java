@@ -23,6 +23,11 @@ import org.apache.streampipes.container.model.PeConfig;
 
 import static org.apache.streampipes.config.ConfigKeys.*;
 
+/**
+ * Data processor config registered at Consul
+ *
+ * config.register(<ENV_VARIABLE>, <DEFAULT>, <DESCRIPTION>);
+ */
 public enum Config implements PeConfig {
   INSTANCE;
 

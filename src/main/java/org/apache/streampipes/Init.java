@@ -33,19 +33,37 @@ import org.apache.streampipes.pe.processor.example.MyGreeterController;
 public class Init extends StandaloneModelSubmitter {
 
   public static void main(String[] args) {
+    /**
+     * Add data processor model descriptions (controller) to be part of data processor microservice
+     * Also feasible to register multiple processors:
+     *
+     * DeclarersSingleton.getInstance()
+     *     .add(new MyGreeterController()
+     *     .add(new FooBarController()
+     *     add( ... );
+     */
     DeclarersSingleton.getInstance()
             .add(new MyGreeterController());
 
+    /**
+     * register supported event formats
+     */
     DeclarersSingleton.getInstance().registerDataFormats(
             new JsonDataFormatFactory(),
             new CborDataFormatFactory(),
             new SmileDataFormatFactory(),
             new FstDataFormatFactory());
 
+    /**
+     * register supported transport protocols
+     */
     DeclarersSingleton.getInstance().registerProtocols(
             new SpKafkaProtocolFactory(),
             new SpJmsProtocolFactory());
 
+    /**
+     * Start Spring application (register config at Consul, start REST api, etc.)
+     */
     new Init().init(Config.INSTANCE);
   }
 }
