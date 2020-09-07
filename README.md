@@ -40,7 +40,7 @@ How to write your own StreamPipes data processor? Simple `greeter` data processo
 git clone https://github.com/wipatrick/apachecon-demo-processor
 ```
 
-#### Step 2: Setup StreamPipes environment with **[StreamPipes CLI](https://github.com/apache/incubator-streampipes-installer/cli)**
+#### Step 2: Setup StreamPipes environment with **[StreamPipes CLI](https://github.com/apache/incubator-streampipes-installer)**
 > **Hint**: read StreamPipes CLI `README` for more details on various options.
 ```bash
 git clone https://github.com/apache/incubator-streampipes-installer
