@@ -115,8 +115,7 @@ public class MyGreeterProcessor extends StreamPipesDataProcessor {
 		 *
 		 * event.addField(String runtimeName, String value)
 		 *
-		 * runtimeName must match the one specified in the
-		 * DataProcessorDescription inside MyGreeterController
+		 * runtimeName must match the one specified in the DataProcessorDescription
 		 *
 		 * ...
 		 * .outputStrategy(OutputStrategies.append(
