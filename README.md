@@ -23,6 +23,8 @@ How to write your own StreamPipes data processor? Simple `greeter` data processo
 * GitHub: [https://github.com/apache/incubator-streampipes](https://github.com/apache/incubator-streampipes)
 * Website: [https://streampipes.apache.org/](https://streampipes.apache.org/)
 
+**Optimized for StreamPipes Version: 0.69.0-SNAPSHOT**
+
 ![MyGreeter Demo](img/apachecon.gif)
 
 ## Prerequisite
@@ -57,14 +59,19 @@ Open this repo as a project in IntelliJ (recommended).
 If you use IntelliJ you're ready to go. Just use our run config `MyGreeterProcessor` (see `.idea/runConfiguration`) which
 should be auto-loaded when importing the Maven project and run the application.
 
-Since we're running the processor natively on your system, and the rest of StreamPipes inside Docker containers. We need
-to make sure that both ends are able to communicate with each other. Thus, we use the environment variables `SP_HOST`,
-`SP_PORT` and `SP_DEBUG` to configure the data processor what host and port it is running on and that we're in dev/debug
-mode.
+[comment]: <> (Since we're running the processor natively on your system, and the rest of StreamPipes inside Docker containers. We need)
 
-**Settings**: 
-* **Windows, Mac** user: `SP_HOST=host.docker.internal` is already set.
-* **Linux** user: set `SP_HOST` to your `docker0` bridge IP (see `ifconfig`).
+[comment]: <> (to make sure that both ends are able to communicate with each other. Thus, we use the environment variables `SP_HOST`,)
+
+[comment]: <> (`SP_PORT` and `SP_DEBUG` to configure the data processor what host and port it is running on and that we're in dev/debug)
+
+[comment]: <> (mode.)
+
+[comment]: <> (**Settings**: )
+
+[comment]: <> (* **Windows, Mac** user: `SP_HOST=host.docker.internal` is already set.)
+
+[comment]: <> (* **Linux** user: set `SP_HOST` to your `docker0` bridge IP &#40;see `ifconfig`&#41;.)
 
 > **Note**: if you're not using IntelliJ and want to run the demo you can so by starting the processor from the command line
 > `mvn spring-boot:run`. The environment variables such as `SP_HOST` can be set in the `pom.xml`.
@@ -99,7 +106,7 @@ generated named docker volumes.
 ## What's next? Where to go from here?
 1. Start the application in debug mode and set a breakpoint in the `onEvent()` method inside `MyGreeter` class to start
 debugging your data processor.
-2. Modify the `declareModel()` method inside the `MyGreeterController` class. Check static properties in the 
+2. Modify the `declareModel()` method inside the `MyGreeterProcessor` class. Check static properties in the 
 [StreamPipes Docs](https://streampipes.apache.org/docs/docs/dev-guide-static-properties/) and 
 [StreamPipes examples](https://github.com/apache/incubator-streampipes-examples) for more options.
 > **IMPORTANT**: When making changes to the `declareModel()` you have to reload this description from the UI. Thus, stop and remove

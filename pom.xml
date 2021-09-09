@@ -22,10 +22,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.streampipes</groupId>
     <artifactId>apachecon-demo-processor</artifactId>
-    <version>0.68.0-SNAPSHOT</version>
+    <version>0.69.0-SNAPSHOT</version>
 
     <properties>
-        <sp.version>0.68.0-SNAPSHOT</sp.version>
+        <sp.version>0.69.0-SNAPSHOT</sp.version>
     </properties>
 
     <dependencies>
@@ -84,6 +84,17 @@
             <artifactId>streampipes-messaging-kafka</artifactId>
             <version>${sp.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.streampipes</groupId>
+            <artifactId>streampipes-messaging-mqtt</artifactId>
+            <version>${sp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.3.9</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -98,7 +109,7 @@
                         <!--<SP_HOST>ADD_DOCKER0_BRIDGE_IP</SP_HOST>-->
                         <!-- Mac, Windows option: host.docker.internal -->
                         <SP_HOST>host.docker.internal</SP_HOST>
-                        <SP_PORT>8005</SP_PORT>
+                        <SP_PORT>8095</SP_PORT>
                         <SP_DEBUG>true</SP_DEBUG>
                     </environmentVariables>
                 </configuration>
@@ -108,7 +119,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>org.apache.streampipes.Init</mainClass>
+                            <mainClass>org.apache.streampipes.processors.jvm.ProcessorInit</mainClass>
                         </configuration>
                     </execution>
                 </executions>

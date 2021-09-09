@@ -16,27 +16,30 @@
  *
  */
 
-package org.apache.streampipes.pe.processor.example;
+package org.apache.streampipes.processors.jvm.greeter;
 
+import org.apache.streampipes.commons.exceptions.SpRuntimeException;
 import org.apache.streampipes.model.DataProcessorType;
 import org.apache.streampipes.model.graph.DataProcessorDescription;
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.model.runtime.Event;
 import org.apache.streampipes.sdk.builder.PrimitivePropertyBuilder;
 import org.apache.streampipes.sdk.builder.ProcessingElementBuilder;
 import org.apache.streampipes.sdk.builder.StreamRequirementsBuilder;
-import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
 import org.apache.streampipes.sdk.helpers.EpRequirements;
 import org.apache.streampipes.sdk.helpers.Labels;
 import org.apache.streampipes.sdk.helpers.OutputStrategies;
 import org.apache.streampipes.sdk.helpers.*;
 import org.apache.streampipes.sdk.utils.Assets;
 import org.apache.streampipes.sdk.utils.Datatypes;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.standalone.ProcessorParams;
+import org.apache.streampipes.wrapper.standalone.StreamPipesDataProcessor;
 
-public class MyGreeterController extends StandaloneEventProcessingDeclarer<MyGreeterParameters> {
+public class MyGreeterProcessor extends StreamPipesDataProcessor {
 
 	private static final String GREETING_KEY = "greeting-key";
+	private String greeting;
 
 	/**
 	 * Data processor model description containing input requirements, user configurations and the used output strategy
@@ -45,7 +48,7 @@ public class MyGreeterController extends StandaloneEventProcessingDeclarer<MyGre
 	 */
 	@Override
 	public DataProcessorDescription declareModel() {
-		return ProcessingElementBuilder.create("org.apache.streampipes.pe.processor.greeter")
+		return ProcessingElementBuilder.create("org.apache.streampipes.processors.jvm.greeter")
 				/**
 				 * Assets (docs, icon) and locales can be found under resources and the <id> for this data processor
 				 * (see above)
@@ -88,20 +91,48 @@ public class MyGreeterController extends StandaloneEventProcessingDeclarer<MyGre
 				.build();
 	}
 
+
 	/**
 	 * here we receive the payload containing needed information from the StreamPipes backend.
-	 *
-	 * @param graph contains information about transport layer (protocol, formats, topics) etc.
-	 * @param extractor provides access to user configurations such as greeting message
-	 * @return
 	 */
 	@Override
-	public ConfiguredEventProcessor<MyGreeterParameters> onInvocation
-				(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
+	public void onInvocation(ProcessorParams params, SpOutputCollector out,
+							 EventProcessorRuntimeContext ctx) throws SpRuntimeException {
 
-		String greeting = extractor.singleValueParameter(GREETING_KEY, String.class);
-		MyGreeterParameters params = new MyGreeterParameters(graph, greeting);
+		greeting = params.extractor().singleValueParameter(GREETING_KEY, String.class);
+	}
 
-		return new ConfiguredEventProcessor<>(params, MyGreeter::new);
+	/**
+	 * onEvent is called on every event
+	 *
+	 * @param event event model containing actual event, used to retrieve certain values or add new fields
+	 * @param out output collector used to forward event
+	 */
+	@Override
+	public void onEvent(Event event, SpOutputCollector out) throws SpRuntimeException {
+		/**
+		 * add new event field with greeting
+		 *
+		 * event.addField(String runtimeName, String value)
+		 *
+		 * runtimeName must match the one specified in the
+		 * DataProcessorDescription inside MyGreeterController
+		 *
+		 * ...
+		 * .outputStrategy(OutputStrategies.append(
+		 * 		PrimitivePropertyBuilder.create(
+		 * 				Datatypes.String, "greeting")
+		 * 		.build()))
+		 * 	...
+		 */
+		event.addField("greeting", greeting);
+		out.collect(event);
+	}
+
+	/**
+	 * onDetach is called when pipeline is stopped
+	 */
+	@Override
+	public void onDetach() throws SpRuntimeException {
 	}
 }

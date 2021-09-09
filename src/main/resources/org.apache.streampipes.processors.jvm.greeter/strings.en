@@ -1,0 +1,5 @@
+org.apache.streampipes.processors.jvm.greeter.title=MyGreeter
+org.apache.streampipes.processors.jvm.greeter.description=Append greeting to event stream
+
+greeting-key.title=Greeting message
+greeting-key.description=Your special greeting message to append
